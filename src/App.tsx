@@ -1,112 +1,92 @@
 import { useEffect, useMemo, useState } from 'react'
+import { LeadDetail } from './components/LeadDetail'
+import { LeadTable } from './components/LeadTable'
+import { fetchLeads } from './services/leadApi'
+import type { LeadRecord } from './types/lead'
+import { sortAndFilterLeads, type LeadSortOption } from './utils/sortLeads'
 import './App.css'
-import { fetchLeads } from './services/leads'
-import type { Lead } from './types/lead'
 
 function App() {
-  const [leads, setLeads] = useState<Lead[]>([])
-  const [query, setQuery] = useState('')
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [leads, setLeads] = useState<LeadRecord[]>([])
+  const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState<LeadSortOption>('score')
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   useEffect(() => {
-    void fetchLeads().then(setLeads).catch(() => setLeads([]))
+    let isMounted = true
+
+    fetchLeads()
+      .then((data) => {
+        if (isMounted) {
+          setLeads(data)
+          setSelectedLeadId(data[0]?.leadId ?? null)
+        }
+      })
+      .catch((err) => {
+        if (isMounted) {
+          setError(err instanceof Error ? err.message : 'A problem occurred while loading leads.')
+        }
+      })
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-  }, [theme])
+  const selectedLead = useMemo(
+    () => leads.find((lead) => lead.leadId === selectedLeadId) ?? null,
+    [leads, selectedLeadId],
+  )
 
-  const filteredLeads = useMemo(() => {
-    const search = query.trim().toLowerCase()
-
-    return leads.filter((lead) => {
-      if (!search) return true
-      return [lead.name, lead.company, lead.title, lead.source, lead.reason]
-        .join(' ')
-        .toLowerCase()
-        .includes(search)
-    })
-  }, [leads, query])
-
-  const selectedLead = filteredLeads.find((lead) => lead.id === selectedId) ?? filteredLeads[0] ?? null
-
-  useEffect(() => {
-    if (!selectedLead && filteredLeads.length > 0) {
-      setSelectedId(filteredLeads[0].id)
-    }
-  }, [filteredLeads, selectedLead])
+  const visibleLeads = useMemo(
+    () => sortAndFilterLeads(leads, search, sortBy),
+    [leads, search, sortBy],
+  )
 
   return (
-    <main className="app-shell">
-      <section className="header-bar">
-        <div>
-          <p className="eyebrow">AI Lead Health Score</p>
-          <h1>Prioritize high-fit leads</h1>
+    <main className={`app-shell ${isDarkMode ? 'theme-dark' : 'theme-light'}`}>
+      <header className="hero-card">
+        <div className="hero-header">
+          <div>
+            <p className="eyebrow">AI Lead Health Score</p>
+            <h1>Turn lead activity into a clear next-best action.</h1>
+            <p className="hero-copy">
+              Review the leads in the queue, inspect their health score, and understand why each one is moving or stalling.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={() => setIsDarkMode((current) => !current)}
+            aria-label="Toggle dark mode"
+          >
+            {isDarkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
         </div>
-        <button type="button" className="theme-toggle" onClick={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}>
-          {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
-        </button>
-      </section>
+      </header>
 
-      <section className="toolbar">
-        <input
-          aria-label="Search leads"
-          placeholder="Search by name, company, title, or source"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-      </section>
+      {error ? (
+        <section className="panel error-panel">
+          <h2>Unable to load lead data</h2>
+          <p>{error}</p>
+        </section>
+      ) : (
+        <div className="content-grid">
+          <LeadTable
+            leads={visibleLeads}
+            selectedLeadId={selectedLeadId}
+            onSelectLead={setSelectedLeadId}
+            search={search}
+            sortBy={sortBy}
+            onSearchChange={setSearch}
+            onSortChange={setSortBy}
+          />
 
-      <section className="content-grid">
-        <aside className="lead-list">
-          {filteredLeads.map((lead) => (
-            <button
-              key={lead.id}
-              type="button"
-              className={`lead-card ${selectedLead?.id === lead.id ? 'selected' : ''}`}
-              onClick={() => setSelectedId(lead.id)}
-            >
-              <div className="lead-card__top">
-                <strong>{lead.name}</strong>
-                <span className="score-pill">{lead.score}</span>
-              </div>
-              <p>{lead.company}</p>
-              <small>{lead.title}</small>
-            </button>
-          ))}
-        </aside>
-
-        <article className="lead-detail">
-          {selectedLead ? (
-            <>
-              <p className="eyebrow">Selected lead</p>
-              <h2>{selectedLead.name}</h2>
-              <p>{selectedLead.company} • {selectedLead.title}</p>
-              <div className="metric-row">
-                <div>
-                  <span className="metric-label">Score</span>
-                  <strong>{selectedLead.score}</strong>
-                </div>
-                <div>
-                  <span className="metric-label">Source</span>
-                  <strong>{selectedLead.source}</strong>
-                </div>
-              </div>
-              <div className="detail-card">
-                <h3>Why this lead matters</h3>
-                <p>{selectedLead.reason}</p>
-              </div>
-              <div className="detail-card">
-                <h3>Recommended next action</h3>
-                <p>{selectedLead.nextAction}</p>
-              </div>
-            </>
-          ) : (
-            <p>No matching leads found.</p>
-          )}
-        </article>
-      </section>
+          {selectedLead ? <LeadDetail lead={selectedLead} /> : null}
+        </div>
+      )}
     </main>
   )
 }
