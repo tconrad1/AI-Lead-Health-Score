@@ -1,0 +1,155 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.hero-card,
+.panel {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.hero-card {
+  padding: 2rem;
+}
+
+.hero-copy {
+  max-width: 720px;
+  margin-top: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.eyebrow {
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 1.5rem;
+}
+
+.panel {
+  padding: 1.25rem;
+}
+
+.panel-header,
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.badge,
+.score-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-weight: 700;
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.score-pill.large {
+  min-width: 88px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.8rem 0.6rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr.selected {
+  background: #eff6ff;
+}
+
+tr:hover {
+  background: #f8fafc;
+  cursor: pointer;
+}
+
+.muted {
+  color: #64748b;
+  font-size: 0.92rem;
+  margin-top: 0.2rem;
+}
+
+.reason-list,
+.meta-list {
+  padding-left: 1.1rem;
+  color: #334155;
+}
+
+.reason-list li,
+.meta-list div {
+  margin-bottom: 0.75rem;
+}
+
+.meta-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.meta-list div {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 0.8rem 0.95rem;
+}
+
+.meta-list dt {
+  font-size: 0.78rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.2rem;
+}
+
+.meta-list dd {
+  margin: 0;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.action-copy {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.error-panel {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+@media (max-width: 900px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}

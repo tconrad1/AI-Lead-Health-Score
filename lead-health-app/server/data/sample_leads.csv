@@ -1,0 +1,21 @@
+leadId,firstName,lastName,state,age,product,leadSource,createdDaysAgo,lastContactDaysAgo,callAttempts,lastCallDurationSeconds,answeredCall,emailOpened,emailClicks,smsReplied,appointmentScheduled,quoted,annualIncome,creditRange,notes
+L001,John,Smith,TX,42,Term Life,Facebook,2,0,2,485,TRUE,TRUE,2,TRUE,TRUE,FALSE,95000,Good,Asked about coverage for new baby
+L002,Sarah,Johnson,FL,37,Final Expense,Google,14,10,6,32,TRUE,FALSE,0,FALSE,FALSE,FALSE,48000,Fair,Requested callback but unreachable
+L003,Michael,Brown,CA,51,IUL,Referral,1,0,1,720,TRUE,TRUE,5,TRUE,TRUE,TRUE,180000,Excellent,Very interested and comparing carriers
+L004,Emily,Davis,GA,29,Term Life,Website,21,15,8,0,FALSE,FALSE,0,FALSE,FALSE,FALSE,68000,Good,Multiple no answers
+L005,Robert,Wilson,OH,46,Whole Life,Facebook,5,1,3,340,TRUE,TRUE,1,FALSE,TRUE,FALSE,105000,Excellent,Needs spouse included
+L006,Lisa,Taylor,NC,55,Final Expense,TV Ad,3,1,2,290,TRUE,FALSE,0,TRUE,TRUE,FALSE,56000,Good,Requested evening appointment
+L007,David,Moore,AZ,34,Term Life,Google,18,12,7,18,TRUE,FALSE,0,FALSE,FALSE,FALSE,73000,Fair,Price sensitive
+L008,Jennifer,Thomas,IL,40,IUL,Referral,2,0,1,615,TRUE,TRUE,4,TRUE,TRUE,TRUE,210000,Excellent,Interested in retirement planning
+L009,Christopher,Jackson,NJ,48,Whole Life,Facebook,9,2,4,210,TRUE,TRUE,1,FALSE,FALSE,FALSE,92000,Good,Needs follow-up after vacation
+L010,Amanda,White,PA,31,Term Life,Website,4,1,2,402,TRUE,TRUE,3,TRUE,TRUE,FALSE,85000,Good,Shopping multiple quotes
+L011,Matthew,Harris,VA,45,IUL,LinkedIn,1,0,1,801,TRUE,TRUE,6,TRUE,TRUE,TRUE,240000,Excellent,Business owner
+L012,Jessica,Martin,SC,39,Final Expense,Google,16,9,5,41,TRUE,FALSE,0,FALSE,FALSE,FALSE,52000,Fair,Requested email information
+L013,Daniel,Thompson,MI,52,Whole Life,Referral,7,1,2,390,TRUE,TRUE,2,TRUE,TRUE,FALSE,125000,Excellent,Needs estate planning discussion
+L014,Ashley,Garcia,NV,28,Term Life,Facebook,25,20,9,0,FALSE,FALSE,0,FALSE,FALSE,FALSE,61000,Fair,No response after signup
+L015,James,Martinez,CO,36,IUL,Google,2,0,1,545,TRUE,TRUE,4,TRUE,TRUE,FALSE,155000,Excellent,Interested in tax advantages
+L016,Megan,Robinson,TN,44,Whole Life,Website,12,4,4,180,TRUE,TRUE,1,FALSE,FALSE,FALSE,99000,Good,Needs follow-up next week
+L017,William,Clark,IN,58,Final Expense,Referral,3,0,2,315,TRUE,TRUE,2,TRUE,TRUE,TRUE,67000,Good,Ready to purchase
+L018,Nicole,Lewis,MO,33,Term Life,Facebook,6,3,3,245,TRUE,FALSE,1,FALSE,FALSE,FALSE,78000,Good,Waiting for employer benefits details
+L019,Andrew,Lee,WA,47,IUL,Google,2,1,2,480,TRUE,TRUE,3,TRUE,TRUE,FALSE,195000,Excellent,Interested in wealth accumulation
+L020,Rachel,Walker,NY,41,Whole Life,Referral,8,2,3,350,TRUE,TRUE,2,TRUE,TRUE,FALSE,118000,Excellent,Asked for policy comparison
