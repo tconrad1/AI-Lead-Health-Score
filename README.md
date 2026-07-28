@@ -23,6 +23,7 @@ I chose a rule-based approach because the dataset consists primarily of structur
   - data/: sample CSV input
 
 ## Run locally
+
 1. Ensure you are in the project folder (the folder this ReadMEis contained in)
    ```cd lead-health-app```
 2. Install dependencies:
