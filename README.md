@@ -1,6 +1,8 @@
 # AI Lead Health Score
 
-This MVP presents a simple lead prioritization experience for the exercise. It loads the sample lead data from the server, scores each lead using a lightweight rule-based approach, and shows the reasoning plus a tailored next action for the selected lead. The data with its binary values and relative uniformity lent itself well to this approach. I built this with Node for the backend and Vite for the front end. 
+This MVP presents a simple lead-prioritization app. It loads the provided lead data from a CSV file, scores each lead using a lightweight rule-based model, and displays the reasoning behind the score along with a recommended next action for the sales representative.
+
+I chose a rule-based approach because the dataset consists primarily of structured, mostly binary engagement signals with relatively uniform fields. This makes the scoring process transparent, easy to explain, and straightforward to extend with additional signals in the future.
 
 ## Prerequisites
 
@@ -22,13 +24,13 @@ This MVP presents a simple lead prioritization experience for the exercise. It l
 
 ## Run locally
 1. Ensure you are in the project folder (the folder this ReadMEis contained in)
-   cd lead-health-app
+   ```cd lead-health-app```
 2. Install dependencies:
-   npm install
+   ```npm install```
 2. Start the API server:
-   node server
+   ```node server```
 3. Start the frontend (in a different terminal):
-   npm run dev
+   ```npm run dev```
 
 The app will use the sample CSV in server/data/sample_leads.csv and expose lead scoring at /api/leads. 
 
