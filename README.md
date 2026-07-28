@@ -1,6 +1,6 @@
 # AI Lead Health Score MVP
 
-This MVP presents a simple lead prioritization experience for the exercise. It loads the sample lead data from the server, scores each lead using a lightweight rule-based approach, and shows the reasoning plus a tailored next action for the selected lead. Built with node and vite.
+This MVP presents a simple lead prioritization experience for the exercise. It loads the sample lead data from the server, scores each lead using a lightweight rule-based approach, and shows the reasoning plus a tailored next action for the selected lead. The data with its binary values and relative uniformity leant itself well to this approuch. I built this with node for the backend and vite for the front end.
 
 ## Structure
 
