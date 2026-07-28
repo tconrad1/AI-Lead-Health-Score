@@ -1,12 +1,25 @@
 import type { LeadRecord } from '../types/lead'
+import type { LeadSortOption } from '../utils/sortLeads'
 
 interface LeadTableProps {
   leads: LeadRecord[]
   selectedLeadId: string | null
   onSelectLead: (leadId: string) => void
+  search: string
+  sortBy: LeadSortOption
+  onSearchChange: (value: string) => void
+  onSortChange: (value: LeadSortOption) => void
 }
 
-export function LeadTable({ leads, selectedLeadId, onSelectLead }: LeadTableProps) {
+export function LeadTable({
+  leads,
+  selectedLeadId,
+  onSelectLead,
+  search,
+  sortBy,
+  onSearchChange,
+  onSortChange,
+}: LeadTableProps) {
   return (
     <section className="panel">
       <div className="panel-header">
@@ -15,6 +28,27 @@ export function LeadTable({ leads, selectedLeadId, onSelectLead }: LeadTableProp
           <h2>Prioritize outreach</h2>
         </div>
         <span className="badge">{leads.length} leads</span>
+      </div>
+
+      <div className="toolbar">
+        <label className="toolbar-field">
+          <span className="toolbar-label">Search</span>
+          <input
+            type="text"
+            value={search}
+            onChange={(event) => onSearchChange(event.target.value)}
+            placeholder="Search leads"
+          />
+        </label>
+
+        <label className="toolbar-field">
+          <span className="toolbar-label">Sort by</span>
+          <select value={sortBy} onChange={(event) => onSortChange(event.target.value as LeadSortOption)}>
+            <option value="score">Score</option>
+            <option value="alphabet">Alphabet</option>
+            <option value="search">Search relevance</option>
+          </select>
+        </label>
       </div>
 
       <div className="table-wrapper">

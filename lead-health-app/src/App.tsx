@@ -3,12 +3,16 @@ import { LeadDetail } from './components/LeadDetail'
 import { LeadTable } from './components/LeadTable'
 import { fetchLeads } from './services/leadApi'
 import type { LeadRecord } from './types/lead'
+import { sortAndFilterLeads, type LeadSortOption } from './utils/sortLeads'
 import './App.css'
 
 function App() {
   const [leads, setLeads] = useState<LeadRecord[]>([])
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState<LeadSortOption>('score')
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   useEffect(() => {
     let isMounted = true
@@ -36,15 +40,30 @@ function App() {
     [leads, selectedLeadId],
   )
 
+  const visibleLeads = useMemo(
+    () => sortAndFilterLeads(leads, search, sortBy),
+    [leads, search, sortBy],
+  )
+
   return (
-    <main className="app-shell">
+    <main className={`app-shell ${isDarkMode ? 'theme-dark' : 'theme-light'}`}>
       <header className="hero-card">
-        <div>
-          <p className="eyebrow">AI Lead Health Score</p>
-          <h1>Turn lead activity into a clear next-best action.</h1>
-          <p className="hero-copy">
-            Review the leads in the queue, inspect their health score, and understand why each one is moving or stalling.
-          </p>
+        <div className="hero-header">
+          <div>
+            <p className="eyebrow">AI Lead Health Score</p>
+            <h1>Turn lead activity into a clear next-best action.</h1>
+            <p className="hero-copy">
+              Review the leads in the queue, inspect their health score, and understand why each one is moving or stalling.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={() => setIsDarkMode((current) => !current)}
+            aria-label="Toggle dark mode"
+          >
+            {isDarkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
         </div>
       </header>
 
@@ -56,9 +75,13 @@ function App() {
       ) : (
         <div className="content-grid">
           <LeadTable
-            leads={leads}
+            leads={visibleLeads}
             selectedLeadId={selectedLeadId}
             onSelectLead={setSelectedLeadId}
+            search={search}
+            sortBy={sortBy}
+            onSearchChange={setSearch}
+            onSortChange={setSortBy}
           />
 
           {selectedLead ? <LeadDetail lead={selectedLead} /> : null}
